@@ -1,17 +1,16 @@
 ---
-name: Custom issue template
-about: Describe this issue template's purpose here.
-title: "[Feat]"
+name: 기본 템플릿
+about: 기본 템플릿
+title: ''
 labels: ''
-assignees: ''
-
+assigness: ''
 ---
 
 # 이슈
 
 ## ✅ 작업 리스트
 
-- [ ]
+-  [ ]
 
 ## 🚧 참고사항
 

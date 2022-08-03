@@ -1,0 +1,34 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+
+  "parser": "@typescript-eslint/parser",
+
+  "plugins": ["@typescript-eslint", "prettier"],
+
+  "rules": {
+    "@typescript-eslint/space-before-function-paren": "off",
+    "no-var": "error",
+    "key-spacing": ["error", { "beforeColon": false }],
+    "newline-before-return": "error",
+    "eqeqeq": ["error", "always"],
+    "prefer-template": "error",
+    "arrow-parens": ["error", "always"],
+    "prefer-arrow-callback": "error",
+    "lines-between-class-members": ["error", "always"],
+    "object-shorthand": ["error", "always"],
+    "no-self-assign": ["error", { "props": true }]
+  }
+}

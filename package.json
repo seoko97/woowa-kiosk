@@ -1,0 +1,25 @@
+{
+  "name": "monorepo-react-nest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "",
+  "license": "MIT",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "packages/**"
+    ]
+  },
+  "scripts": {
+    "start:client": "yarn workspace client run start",
+    "build:client": "yarn workspace client run build",
+    "test:client": "yarn workspace client run test"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.31.0",
+    "@typescript-eslint/parser": "^5.31.0",
+    "eslint": "^8.21.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1"
+  }
+}

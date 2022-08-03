@@ -13,7 +13,10 @@
   "scripts": {
     "start:client": "yarn workspace client run start",
     "build:client": "yarn workspace client run build",
-    "test:client": "yarn workspace client run test"
+    "test:client": "yarn workspace client run test",
+    "start:server": "yarn workspace server run start:dev",
+    "build:server": "yarn workspace server run build",
+    "test:server": "yarn workspace server run test"
   },
   "dependencies": {
     "@typescript-eslint/eslint-plugin": "^5.31.0",

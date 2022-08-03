@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@categories/*": ["src/categories/*"],
+      "@common/*": ["src/common/*"],
+      "@menus/*": ["src/menus/*"],
+      "@options/*": ["src/options/*"],
+      "@optionDetails/*": ["src/optionDetails/*"],
+      "@utils/*": ["src/utils/*"],
+      "@src/*": ["src/*"]
+    }
+  }
+}

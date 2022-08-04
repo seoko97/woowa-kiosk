@@ -1,32 +1,16 @@
 import { Menu } from "@menus/entities/menu.entity";
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  Repository,
-  Unique,
-  UpdateDateColumn,
-} from "typeorm";
+import { CustomBaseEntity } from "@src/core/CustomBaseEntity";
+import { IsString } from "class-validator";
+import { Column, Entity, OneToMany, Repository, Unique } from "typeorm";
 
 @Entity({ name: "category_table" })
 @Unique(["name"])
-export class Category extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id!: number;
-
+export class Category extends CustomBaseEntity {
   @Column({ type: "varchar", length: 30 })
+  @IsString()
   name!: string;
 
-  @CreateDateColumn({ name: "createdAt" })
-  createdAt!: Date;
-
-  @UpdateDateColumn({ name: "updatedAt" })
-  updatedAt!: Date;
-
-  @OneToMany(() => Menu, (menu) => menu.category)
+  @OneToMany(() => Menu, (menu) => menu.category, { onDelete: "CASCADE" })
   menus!: Menu[];
 }
 

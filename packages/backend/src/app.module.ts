@@ -6,6 +6,8 @@ import { CategoriesModule } from "@categories/categories.module";
 import { MenusModule } from "@menus/menus.module";
 import { OptionsModule } from "@options/options.module";
 import { OptionDetailsModule } from "@optionDetails/optionDetails.module";
+import { OrdersModule } from "@orders/orders.module";
+import { OrderDetailsModule } from "@orderDetails/orderDetails.module";
 
 @Module({
   imports: [
@@ -15,6 +17,8 @@ import { OptionDetailsModule } from "@optionDetails/optionDetails.module";
     MenusModule,
     OptionsModule,
     OptionDetailsModule,
+    OrdersModule,
+    OrderDetailsModule,
   ],
   controllers: [],
   providers: [],

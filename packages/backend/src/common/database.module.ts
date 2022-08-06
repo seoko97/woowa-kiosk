@@ -8,6 +8,10 @@ import { Option } from "@options/entities/option.entity";
 
 import { config } from "dotenv";
 import { CommonModule } from "./common.module";
+import { Order } from "@orders/entities/order.entity";
+import { OrderDetail } from "@orderDetails/entities/orderDetail.entity";
+import { OrderSnapShot } from "@src/orderSnapShot/entities/orderSnapShot.entity";
+import { SaleByDate } from "@orderDetails/entities/saleByDate.entity";
 
 config();
 
@@ -18,8 +22,9 @@ const DATABASE_CONFIG: TypeOrmModuleOptions = {
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [Category, Menu, Option, OptionDetail],
+  entities: [Category, Menu, Option, OptionDetail, Order, OrderDetail, OrderSnapShot, SaleByDate],
   synchronize: true,
+  logging: true,
 };
 
 @Module({

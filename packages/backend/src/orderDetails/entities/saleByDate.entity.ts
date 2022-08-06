@@ -24,16 +24,6 @@ export class SaleByDate extends CustomBaseEntity {
 
   @OneToMany(() => OrderSnapShot, (snapShot) => snapShot.orderDetail)
   options: OrderSnapShot[];
-
-  static upsertByDate(data: any) {
-    console.log(data);
-    return this.createQueryBuilder()
-      .insert()
-      .into(SaleByDate, ["date", "count", "menu"])
-      .values(data)
-      .orUpdate(["date", "menuId"], ["count"])
-      .execute();
-  }
 }
 
 export interface SaleByDateRepository extends Repository<SaleByDate> {

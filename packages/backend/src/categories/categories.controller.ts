@@ -23,7 +23,8 @@ export class CategoriesController {
 
   @Get(":id")
   async findOne(@Param("id") id: number) {
-    return this.categoriesService.findOne(id);
+    const category = await this.categoriesService.findOne(id);
+    return { ok: true, category };
   }
 
   @Patch(":id")

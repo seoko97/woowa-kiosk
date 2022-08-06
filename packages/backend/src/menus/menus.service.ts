@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { FindOneOptions } from "typeorm";
 import { CreateMenuDto } from "./dto/createMenu.dto";
 import { UpdateMenuDto } from "./dto/updateMenu.dto";
 import { Menu, MenuRepository } from "./entities/menu.entity";
@@ -9,19 +10,15 @@ export class MenusService {
   constructor(@InjectRepository(Menu) private readonly menuRepository: MenuRepository) {}
 
   async create(createMenuDto: CreateMenuDto) {
-    const { name, category } = createMenuDto;
+    const { name } = createMenuDto;
     try {
       const isAlready = await this.menuRepository.findOneBy({
         name,
-        category: { id: category.id },
       });
 
       if (isAlready) throw new Error("이미 존재하는 메뉴입니다.");
 
-      const menu = await this.menuRepository.create(createMenuDto);
-      menu.options = [];
-
-      await this.menuRepository.save(menu);
+      const menu = await this.menuRepository.create(createMenuDto).save();
 
       return { ok: true, menu };
     } catch (error) {
@@ -30,7 +27,9 @@ export class MenusService {
   }
 
   findAll() {
-    return this.menuRepository.find({ relations: { category: true, options: true } });
+    return this.menuRepository.find({
+      relations: { category: true },
+    });
   }
 
   findOne(id: number) {
@@ -41,8 +40,13 @@ export class MenusService {
         options: {
           details: true,
         },
+        saleByDate: true,
       },
     });
+  }
+
+  findOneById(id: number, options: FindOneOptions<Menu> = {}) {
+    return this.menuRepository.findOne({ where: { id }, ...options });
   }
 
   update(id: number, updateMenuDto: UpdateMenuDto) {
@@ -50,6 +54,6 @@ export class MenusService {
   }
 
   delete(id: number) {
-    return this.menuRepository.delete(id);
+    return this.menuRepository.softDelete(id);
   }
 }

@@ -7,6 +7,8 @@
       "@menus/*": ["src/menus/*"],
       "@options/*": ["src/options/*"],
       "@optionDetails/*": ["src/optionDetails/*"],
+      "@orders/*": ["src/orders/*"],
+      "@orderDetails/*": ["src/orderDetails/*"],
       "@utils/*": ["src/utils/*"],
       "@src/*": ["src/*"]
     }

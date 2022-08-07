@@ -1,33 +1,20 @@
 import { Option } from "@options/entities/option.entity";
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-  Repository,
-  UpdateDateColumn,
-} from "typeorm";
+import { CustomBaseEntity } from "@src/core/CustomBaseEntity";
+import { IsInt, IsObject, IsString } from "class-validator";
+import { Column, Entity, ManyToOne, Repository } from "typeorm";
 
 @Entity({ name: "option_detail_table" })
-export class OptionDetail extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id!: number;
-
+export class OptionDetail extends CustomBaseEntity {
   @Column({ type: "varchar", length: 50 })
-  detail!: string;
+  @IsString()
+  name!: string;
 
   @Column({ type: "int" })
+  @IsInt()
   price!: number;
 
-  @CreateDateColumn({ name: "createdAt" })
-  createdAt!: Date;
-
-  @UpdateDateColumn({ name: "updatedAt" })
-  updatedAt!: Date;
-
   @ManyToOne(() => Option, (option) => option.details)
+  @IsObject()
   option!: Option;
 }
 

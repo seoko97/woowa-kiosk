@@ -1,38 +1,30 @@
 import { Menu } from "@menus/entities/menu.entity";
 import { OptionDetail } from "@optionDetails/entities/optionDetail.entity";
-import {
-  BaseEntity,
-  Column,
-  CreateDateColumn,
-  Entity,
-  ManyToMany,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  Repository,
-  Unique,
-  UpdateDateColumn,
-} from "typeorm";
+import { CustomBaseEntity } from "@src/core/CustomBaseEntity";
+import { IsArray, IsBoolean, IsNumber, IsString } from "class-validator";
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, Repository } from "typeorm";
 
 @Entity({ name: "option_table" })
-@Unique(["name"])
-export class Option extends BaseEntity {
-  @PrimaryGeneratedColumn()
-  id!: number;
-
+export class Option extends CustomBaseEntity {
   @Column({ type: "varchar", length: 30 })
+  @IsString()
   name!: string;
 
-  @CreateDateColumn({ name: "createdAt" })
-  createdAt!: Date;
+  @Column({ type: "boolean" })
+  @IsBoolean()
+  isDuplicate!: boolean;
 
-  @UpdateDateColumn({ name: "updatedAt" })
-  updatedAt!: Date;
+  @Column({ type: "int", select: false })
+  @IsNumber()
+  menuId!: number;
+
+  @ManyToOne(() => Menu, (menu) => menu.options)
+  @JoinColumn({ name: "menuId" })
+  menu: Menu;
 
   @OneToMany(() => OptionDetail, (detail) => detail.option)
+  @IsArray()
   details!: OptionDetail[];
-
-  @ManyToMany(() => Menu, (menu) => menu.options)
-  menus: Menu[];
 }
 
 export type OptionRepository = Repository<Option>;

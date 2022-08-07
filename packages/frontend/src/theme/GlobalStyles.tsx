@@ -1,42 +1,43 @@
 import { css, Global } from "@emotion/react";
 
-const GlobalStyle = () => (
+import { ThemeType } from ".";
+import { reset } from "./reset";
+
+interface Props {
+  theme: ThemeType;
+}
+
+const GlobalStyle = ({ theme }: Props) => (
   <Global
     styles={css`
+      ${reset}
+      html {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+
+        font-size: 16px;
+
+        @media (min-width: ${theme.BP.MOBILE}) {
+          font-size: ${theme.FONT_SIZE.sm};
+        }
+
+        @media (min-width: ${theme.BP.TABLET}) {
+          font-size: ${theme.FONT_SIZE.md};
+        }
+        @media (min-width: ${theme.BP.KIOSK}) {
+          font-size: ${theme.FONT_SIZE.lg};
+        }
+      }
+
       body,
       #root {
         width: 100%;
         height: 100%;
       }
+
       body {
         margin: 0;
-        font-size: 16px;
         user-select: none;
-      }
-      h1,
-      h2,
-      h3,
-      h4,
-      h5,
-      h6 {
-        margin-top: 0;
-      }
-      a {
-        color: inherit;
-        text-decoration: none;
-        outline: none;
-      }
-      input,
-      textarea,
-      button {
-        border: 0;
-        padding: 0;
-        appearance: none;
-        -moz-appearance: none;
-        -webkit-appearance: none;
-        border-radius: 0;
-        -webkit-border-radius: 0;
-        -moz-border-radius: 0;
       }
 
       * {

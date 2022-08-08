@@ -1,3 +1,21 @@
+const BP = {
+  MOBILE: "480px",
+  TABLET: "764px",
+  KIOSK: "1500px",
+};
+
+export const FONT_SIZE = {
+  sm: "1rem",
+  md: "1.5rem",
+  lg: "2rem",
+};
+
+const BUTTON_SIZE = {
+  sm: "1rem",
+  md: "1rem 1.5rem",
+  lg: "1.5rem 2rem",
+};
+
 export const theme = Object.freeze({
   PRIMARY1: "#2AC1BC",
   PRIMARY2: "#A0E1E0",
@@ -14,6 +32,9 @@ export const theme = Object.freeze({
   DARK_ERROR: "#CD6766",
   DARK_GREEN: "#394032",
   WHITE: "#ffffff",
+  BP,
+  FONT_SIZE,
+  BUTTON_SIZE,
 });
 
 export type ThemeType = typeof theme;

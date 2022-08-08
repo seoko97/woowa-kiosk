@@ -14,12 +14,10 @@ interface Props {
 
 const Header = ({ categories, selected, getMenus }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
-  const [dragStart] = useScrollXTouchSlide(ref);
+  const [dragStart, dragEnd] = useScrollXTouchSlide(ref);
 
   const onClickNavItem: MouseEventHandler<HTMLDivElement> = useCallback(
     (e) => {
-      const dragEnd = new Date().getTime();
-
       if (dragEnd - dragStart >= 150) return;
 
       const text = e.currentTarget.innerText;
@@ -35,7 +33,7 @@ const Header = ({ categories, selected, getMenus }: Props) => {
 
       getMenus(selectedCategory);
     },
-    [dragStart],
+    [dragStart, dragEnd],
   );
 
   return (

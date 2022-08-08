@@ -1,12 +1,13 @@
 import { RefObject, useCallback, useEffect, useState } from "react";
 
-type IReturnType = [number, boolean];
+type IReturnType = [number, number, boolean];
 type IScrollXSlide = (ref: RefObject<HTMLDivElement>) => IReturnType;
 
 const useScrollXTouchSlide: IScrollXSlide = (ref) => {
   const [isDrag, setIsDrag] = useState(false);
   const [startX, setStartX] = useState(0);
   const [dragStart, setDragStart] = useState(0);
+  const [dragEnd, setDragEnd] = useState(0);
 
   const onDragStart = useCallback((e: MouseEvent) => {
     e.preventDefault();
@@ -19,6 +20,9 @@ const useScrollXTouchSlide: IScrollXSlide = (ref) => {
   }, []);
 
   const onDragEnd = useCallback(() => {
+    const date = new Date();
+
+    setDragEnd(date.getTime());
     setIsDrag(false);
   }, []);
 
@@ -60,7 +64,7 @@ const useScrollXTouchSlide: IScrollXSlide = (ref) => {
     };
   }, [isDrag]);
 
-  return [dragStart, isDrag];
+  return [dragStart, dragEnd, isDrag];
 };
 
 export default useScrollXTouchSlide;

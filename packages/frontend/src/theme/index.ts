@@ -1,7 +1,7 @@
 const BP = {
   MOBILE: "480px",
   TABLET: "764px",
-  KIOSK: "1500px",
+  KIOSK: "980px",
 };
 
 export const FONT_SIZE = {

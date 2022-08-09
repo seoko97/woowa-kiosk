@@ -14,15 +14,17 @@ import MenuList from "./components/UI/organisms/MenuList";
 import MainContent from "./components/UI/organisms/MainContent";
 
 function App() {
-  const [selected, setSelected] = useState<ICategory | null>(null);
+  const [selectedCategory, setSelected] = useState<ICategory | null>(null);
   const [categories, setCategory] = useState<ICategoryRes[]>([]);
+  const [pageAction, setPageAction] = useState<string | null>(null);
+
   const selectedMenus = useMemo(() => {
-    const category = categories.find((category) => category.name === selected?.name);
+    const category = categories.find((category) => category.name === selectedCategory?.name);
 
     if (!category) return [];
 
     return category.menus;
-  }, [selected, categories]);
+  }, [selectedCategory, categories]);
 
   const getCategories = useCallback(async () => {
     const data = await requestGetCategories();
@@ -34,9 +36,21 @@ function App() {
     setSelected({ id: category.id, name: category.name });
   }, []);
 
-  const onSelectCategory = useCallback((category: ICategory) => {
-    setSelected(category);
-  }, []);
+  const onSelectCategory = useCallback(
+    (category: ICategory) => {
+      const prevCategory = selectedCategory;
+
+      if (prevCategory && category.id > prevCategory.id) {
+        setPageAction("next");
+      }
+      if (prevCategory && category.id < prevCategory.id) {
+        setPageAction("prev");
+      }
+
+      setSelected({ id: category.id, name: category.name });
+    },
+    [selectedCategory],
+  );
 
   useEffect(() => {
     getCategories();
@@ -46,8 +60,14 @@ function App() {
     <ThemeProvider theme={theme}>
       <GlobalStyle theme={theme} />
       <AppLayout>
-        <Header selected={selected} categories={categories} onSelectCategory={onSelectCategory} />
-        <MainContent>
+        {categories && (
+          <Header
+            selectedCategory={selectedCategory}
+            categories={categories}
+            onSelectCategory={onSelectCategory}
+          />
+        )}
+        <MainContent pageAction={pageAction}>
           <MenuList menus={selectedMenus} />
         </MainContent>
       </AppLayout>

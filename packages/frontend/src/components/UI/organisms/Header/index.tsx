@@ -4,15 +4,15 @@ import useScrollXTouchSlide from "src/hooks/useScrollXTouchSlide";
 import { ICategory } from "src/types/category";
 import NavItem from "../../atoms/NavItem";
 import RowFrame from "../../template/RowFrame";
-import Title from "../Title";
+import Logo from "../Logo";
 
 interface Props {
-  selected: string;
+  selected: ICategory | null;
   categories: ICategory[];
-  getMenus: (category: ICategory) => void;
+  onSelectCategory: (category: ICategory) => void;
 }
 
-const Header = ({ categories, selected, getMenus }: Props) => {
+const Header = ({ categories, selected, onSelectCategory }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [dragStart, dragEnd] = useScrollXTouchSlide(ref);
 
@@ -31,18 +31,18 @@ const Header = ({ categories, selected, getMenus }: Props) => {
         behavior: "smooth",
       });
 
-      getMenus(selectedCategory);
+      onSelectCategory(selectedCategory);
     },
     [dragStart, dragEnd],
   );
 
   return (
     <Container>
-      <Title />
+      <Logo />
       <StyledHeader ref={ref}>
         {categories.map((category) => (
           <NavItem
-            className={selected === category.name ? "selected" : ""}
+            className={selected?.name === category.name ? "selected" : ""}
             key={category.id}
             text={category.name}
             onClick={onClickNavItem}
@@ -58,10 +58,12 @@ const Container = styled(RowFrame)`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: ${({ theme }) => theme.BACKGROUND};
 `;
 
 const StyledHeader = styled.section`

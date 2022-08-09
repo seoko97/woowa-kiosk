@@ -1,7 +1,7 @@
 import { RefObject, useCallback, useEffect, useState } from "react";
 
 type IReturnType = [number, number, boolean];
-type IScrollXSlide = (ref: RefObject<HTMLDivElement>) => IReturnType;
+type IScrollXSlide = <T extends HTMLElement>(ref: RefObject<T>) => IReturnType;
 
 const useScrollXTouchSlide: IScrollXSlide = (ref) => {
   const [isDrag, setIsDrag] = useState(false);
@@ -58,9 +58,7 @@ const useScrollXTouchSlide: IScrollXSlide = (ref) => {
       ref.current.removeEventListener("mousedown", onDragStart);
       ref.current.removeEventListener("mouseup", onDragEnd);
       ref.current.removeEventListener("mouseleave", onDragEnd);
-      if (isDrag) {
-        ref.current.removeEventListener("mousemove", onDragMove);
-      }
+      ref.current.removeEventListener("mousemove", onDragMove);
     };
   }, [isDrag]);
 

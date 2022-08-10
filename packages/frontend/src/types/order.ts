@@ -10,7 +10,6 @@ interface IOrder {
 
 interface IOrderDetail {
   count: number;
-  totalPrice: number;
   menuName: string;
   menuPrice: number;
   options: IOrderOptionSnapShot[];

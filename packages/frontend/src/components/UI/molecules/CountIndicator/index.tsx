@@ -9,29 +9,34 @@ interface Props {
 }
 
 const CountIndicator = ({ count, countHandler }: Props) => {
-  const onClickIndicator: MouseEventHandler<HTMLButtonElement> = useCallback(
+  const increaseCount: MouseEventHandler<HTMLButtonElement> = useCallback(
+    (e) => {
+      e.preventDefault();
+      countHandler(count + 1);
+    },
+    [count],
+  );
+
+  const decreaseCount: MouseEventHandler<HTMLButtonElement> = useCallback(
     (e) => {
       e.preventDefault();
 
-      const $target = e.currentTarget;
-
-      if ($target.name === "increase") {
-        countHandler(count + 1);
-      } else {
-        if (count === 0) return;
-        countHandler(count - 1);
+      if (count === 0) {
+        return;
       }
+
+      countHandler(count - 1);
     },
     [count],
   );
 
   return (
     <Form>
-      <button name="increase" onClick={onClickIndicator}>
+      <button name="increase" onClick={increaseCount}>
         <PlusIcon />
       </button>
       <span className="count">{count}</span>
-      <button name="decrease" onClick={onClickIndicator}>
+      <button name="decrease" onClick={decreaseCount}>
         <MinusIcon />
       </button>
     </Form>

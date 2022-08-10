@@ -6,8 +6,8 @@ const BP = {
 
 export const FONT_SIZE = {
   sm: "1rem",
-  md: "1.5rem",
-  lg: "2rem",
+  md: "1.4rem",
+  lg: "1.8rem",
 };
 
 const BUTTON_SIZE = {

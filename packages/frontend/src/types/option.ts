@@ -4,6 +4,7 @@ interface IOption extends CoreDataDto {
   id: number;
   name: string;
   details: IOptionDetail[];
+  isDuplicate: boolean;
 }
 
 interface IOptionDetail extends CoreDataDto {

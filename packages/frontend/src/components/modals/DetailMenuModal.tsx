@@ -20,7 +20,7 @@ const DetailMenuModal = ({ onClose, menu }: Props) => {
   const [selectedMenu, setSelectedMenu] = useState<IMenuRes | null>(null);
   const [initOrderState, setInitOrderState] = useState<IOrderDetail | null>(null);
 
-  const getMenu = useCallback(async () => {
+  const getMenu = async () => {
     const data = await requestGetMenuById(menu.id);
 
     setSelectedMenu(data);
@@ -31,7 +31,7 @@ const DetailMenuModal = ({ onClose, menu }: Props) => {
       options: getOptionDetail(data.options),
     });
     setTimeout(() => ref.current?.classList.add("active"), 50);
-  }, []);
+  };
 
   useEffect(() => {
     getMenu();

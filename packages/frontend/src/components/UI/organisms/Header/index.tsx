@@ -7,8 +7,8 @@ import RowFrame from "../../template/RowFrame";
 import Logo from "../Logo";
 
 interface Props {
-  selectedCategory: ICategory | null;
   categories: ICategory[];
+  selectedCategory: ICategory | null;
   onSelectCategory: (category: ICategory) => void;
 }
 
@@ -18,7 +18,7 @@ const Header = ({ categories, selectedCategory, onSelectCategory }: Props) => {
 
   const onClickNavItem: MouseEventHandler<HTMLDivElement> = useCallback(
     (e) => {
-      if (dragEnd - dragStart >= 150) return;
+      if (dragEnd - dragStart >= 180) return;
 
       const text = e.currentTarget.innerText;
       const _selectedCategory = categories.find((category) => category.name === text);

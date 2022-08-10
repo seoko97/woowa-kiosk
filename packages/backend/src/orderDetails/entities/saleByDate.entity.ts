@@ -2,7 +2,7 @@ import { Menu } from "@menus/entities/menu.entity";
 import { CustomBaseEntity } from "@src/core/CustomBaseEntity";
 import { IsNumber, IsString } from "class-validator";
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, Repository } from "typeorm";
-import { OrderSnapShot } from "../../orderSnapShot/entities/orderSnapShot.entity";
+import { OrderSnapShot } from "@orderSnapShot/entities/orderSnapShot.entity";
 
 @Entity({ name: "sale_by_date_table" })
 export class SaleByDate extends CustomBaseEntity {
@@ -14,12 +14,16 @@ export class SaleByDate extends CustomBaseEntity {
   @IsNumber()
   count!: number;
 
-  @Column({ type: "int" })
+  @Column({ type: "varchar" })
   @IsNumber()
-  menuId!: number;
+  menuName!: string;
 
-  @ManyToOne(() => Menu, (menu) => menu.orders)
-  @JoinColumn({ name: "menuId" })
+  @ManyToOne(() => Menu, (menu) => menu.saleByDate)
+  @JoinColumn({
+    referencedColumnName: "name",
+    name: "menuName",
+    foreignKeyConstraintName: "menuName",
+  })
   menu!: Menu;
 
   @OneToMany(() => OrderSnapShot, (snapShot) => snapShot.orderDetail)

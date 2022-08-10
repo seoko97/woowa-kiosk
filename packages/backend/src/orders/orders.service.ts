@@ -54,7 +54,6 @@ export class OrdersService {
       where: { id },
       relations: {
         orderDetails: {
-          menu: true,
           options: true,
         },
       },

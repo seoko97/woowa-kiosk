@@ -1,10 +1,8 @@
-import { Menu } from "@menus/entities/menu.entity";
-import {} from "@optionDetails/entities/optionDetail.entity";
-import { Order } from "@orders/entities/order.entity";
-import { CustomBaseEntity } from "@src/core/CustomBaseEntity";
 import { IsNumber, IsString } from "class-validator";
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany, Repository } from "typeorm";
-import { OrderSnapShot } from "../../orderSnapShot/entities/orderSnapShot.entity";
+import { Column, Entity, ManyToOne, OneToMany, Repository } from "typeorm";
+import { Order } from "@orders/entities/order.entity";
+import { OrderSnapShot } from "@orderSnapShot/entities/orderSnapShot.entity";
+import { CustomBaseEntity } from "@src/core/CustomBaseEntity";
 
 @Entity({ name: "order_detail_table" })
 export class OrderDetail extends CustomBaseEntity {
@@ -12,21 +10,21 @@ export class OrderDetail extends CustomBaseEntity {
   @IsNumber()
   count!: number;
 
-  @Column({ type: "int" })
-  @IsNumber()
-  totalPrice!: number;
-
   @Column({ type: "varchar" })
   @IsString()
   date!: string;
 
-  @Column({ type: "int", select: false })
-  @IsNumber()
-  menuId!: number;
+  @Column({ type: "varchar" })
+  @IsString()
+  menuName!: string;
 
-  @ManyToOne(() => Menu, (menu) => menu.orders)
-  @JoinColumn({ name: "menuId" })
-  menu!: Menu;
+  @Column({ type: "int" })
+  @IsNumber()
+  menuPrice!: number;
+
+  @Column({ type: "text" })
+  @IsString()
+  menuImgUrl!: string;
 
   @ManyToOne(() => Order, (order) => order.orderDetails)
   order!: Order;

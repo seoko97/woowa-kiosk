@@ -9,6 +9,7 @@
       "@optionDetails/*": ["src/optionDetails/*"],
       "@orders/*": ["src/orders/*"],
       "@orderDetails/*": ["src/orderDetails/*"],
+      "@orderSnapShot/*": ["src/orderSnapShot/*"],
       "@utils/*": ["src/utils/*"],
       "@src/*": ["src/*"]
     }

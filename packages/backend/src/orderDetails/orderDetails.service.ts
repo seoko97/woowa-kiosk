@@ -30,7 +30,7 @@ export class OrderDetailsService {
     });
 
     const orderSnapShots = await this.orderSnapshotService.createMany(options);
-    await this.upsertBySaleByDate({ date, menuId: detail.menuId, count: detail.count });
+    await this.upsertBySaleByDate({ date, menuName: detail.menuName, count: detail.count });
 
     orderDetail.options = orderSnapShots;
 
@@ -44,8 +44,8 @@ export class OrderDetailsService {
   }
 
   async upsertBySaleByDate(data) {
-    const { menuId, date, count } = data;
-    const item = await this.saleByDateRepository.findOneBy({ menuId, date });
+    const { menuName, date, count } = data;
+    const item = await this.saleByDateRepository.findOneBy({ menuName, date });
 
     if (item) {
       item.count += count;
@@ -53,7 +53,7 @@ export class OrderDetailsService {
       return item;
     }
 
-    return await this.saleByDateRepository.create({ menuId, date, count }).save();
+    return await this.saleByDateRepository.create({ menuName, date, count }).save();
   }
 
   findAll() {

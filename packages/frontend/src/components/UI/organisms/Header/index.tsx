@@ -4,15 +4,15 @@ import useScrollXTouchSlide from "src/hooks/useScrollXTouchSlide";
 import { ICategory } from "src/types/category";
 import NavItem from "../../atoms/NavItem";
 import RowFrame from "../../template/RowFrame";
-import Title from "../Title";
+import Logo from "../Logo";
 
 interface Props {
-  selected: string;
+  selectedCategory: ICategory | null;
   categories: ICategory[];
-  getMenus: (category: ICategory) => void;
+  onSelectCategory: (category: ICategory) => void;
 }
 
-const Header = ({ categories, selected, getMenus }: Props) => {
+const Header = ({ categories, selectedCategory, onSelectCategory }: Props) => {
   const ref = useRef<HTMLDivElement>(null);
   const [dragStart, dragEnd] = useScrollXTouchSlide(ref);
 
@@ -21,9 +21,9 @@ const Header = ({ categories, selected, getMenus }: Props) => {
       if (dragEnd - dragStart >= 150) return;
 
       const text = e.currentTarget.innerText;
-      const selectedCategory = categories.find((category) => category.name === text);
+      const _selectedCategory = categories.find((category) => category.name === text);
 
-      if (!selectedCategory) return;
+      if (!_selectedCategory || _selectedCategory.name === selectedCategory?.name) return;
 
       e.currentTarget.scrollIntoView({
         block: "center",
@@ -31,18 +31,18 @@ const Header = ({ categories, selected, getMenus }: Props) => {
         behavior: "smooth",
       });
 
-      getMenus(selectedCategory);
+      onSelectCategory(_selectedCategory);
     },
-    [dragStart, dragEnd],
+    [dragStart, dragEnd, selectedCategory],
   );
 
   return (
     <Container>
-      <Title />
+      <Logo />
       <StyledHeader ref={ref}>
         {categories.map((category) => (
           <NavItem
-            className={selected === category.name ? "selected" : ""}
+            className={selectedCategory?.name === category.name ? "selected" : ""}
             key={category.id}
             text={category.name}
             onClick={onClickNavItem}
@@ -58,10 +58,12 @@ const Container = styled(RowFrame)`
   top: 0;
   left: 0;
   right: 0;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: ${({ theme }) => theme.BACKGROUND};
 `;
 
 const StyledHeader = styled.section`
@@ -76,4 +78,4 @@ const StyledHeader = styled.section`
   padding: 1rem;
 `;
 
-export default memo(Header, (prev, next) => prev.selected === next.selected);
+export default memo(Header);

@@ -1,8 +1,8 @@
 import { IRequestGetMenu, IRequestGetMenus } from "src/types/menu";
 import axios from ".";
 
-const requestGetMenusByCategoryId = async (categoryId: number) => {
-  const { data } = await axios.get<IRequestGetMenus>(`/menu?categoryId=${categoryId}`);
+const requestGetMenus = async () => {
+  const { data } = await axios.get<IRequestGetMenus>(`/menu`);
 
   return data.menus;
 };
@@ -13,4 +13,4 @@ const requestGetMenuById = async (id: number) => {
   return data.menu;
 };
 
-export { requestGetMenuById, requestGetMenusByCategoryId };
+export { requestGetMenuById, requestGetMenus };

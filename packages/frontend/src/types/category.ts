@@ -1,11 +1,14 @@
 import { CoreDataDto, CoreRes } from "./core";
+import { IMenusRes } from "./menu";
 
 interface ICategory {
   id: number;
   name: string;
 }
 
-type ICategoryRes = ICategory & CoreDataDto;
+interface ICategoryRes extends ICategory, CoreDataDto {
+  menus: IMenusRes[];
+}
 
 interface IGetCategories extends CoreRes {
   categories: ICategoryRes[];

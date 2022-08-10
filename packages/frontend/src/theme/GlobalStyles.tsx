@@ -14,19 +14,7 @@ const GlobalStyle = ({ theme }: Props) => (
       html {
         -ms-overflow-style: none;
         scrollbar-width: none;
-
         font-size: 16px;
-
-        @media (min-width: ${theme.BP.MOBILE}) {
-          font-size: ${theme.FONT_SIZE.sm};
-        }
-
-        @media (min-width: ${theme.BP.TABLET}) {
-          font-size: ${theme.FONT_SIZE.md};
-        }
-        @media (min-width: ${theme.BP.KIOSK}) {
-          font-size: ${theme.FONT_SIZE.lg};
-        }
       }
 
       body,

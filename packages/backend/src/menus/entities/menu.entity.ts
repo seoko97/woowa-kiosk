@@ -1,8 +1,4 @@
-import { Category } from "@categories/entities/category.entity";
-import { Option } from "@options/entities/option.entity";
-import { OrderDetail } from "@orderDetails/entities/orderDetail.entity";
-import { CustomBaseEntity } from "@src/core/CustomBaseEntity";
-import { IsArray, IsNumber, IsObject, IsString } from "class-validator";
+import { IsArray, IsNumber, IsString } from "class-validator";
 import {
   Column,
   DeleteDateColumn,
@@ -13,7 +9,10 @@ import {
   Repository,
   Unique,
 } from "typeorm";
-import { SaleByDate } from "../../orderDetails/entities/saleByDate.entity";
+import { Category } from "@categories/entities/category.entity";
+import { Option } from "@options/entities/option.entity";
+import { CustomBaseEntity } from "@src/core/CustomBaseEntity";
+import { SaleByDate } from "@orderDetails/entities/saleByDate.entity";
 
 @Entity({ name: "menu_table" })
 @Unique(["name"])
@@ -42,12 +41,8 @@ export class Menu extends CustomBaseEntity {
   @IsArray()
   options!: Option[];
 
-  @OneToMany(() => OrderDetail, (detail) => detail.menu)
-  @IsArray()
-  orders!: OrderDetail[];
-
   @OneToMany(() => SaleByDate, (saleByDate) => saleByDate.menu)
-  saleByDate!: number;
+  saleByDate!: SaleByDate[];
 
   @DeleteDateColumn({ name: "deletedAt" })
   deletedAt: Date;

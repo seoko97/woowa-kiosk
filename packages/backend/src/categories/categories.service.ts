@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { getDateByNow } from "@utils/getDateByNow";
 import { CreateCategoryDto } from "./dto/createCategory.dto";
 import { UpdateCategoryDto } from "./dto/updateCategory.dto";
 import { Category, CategoryRepository } from "./entities/category.entity";
@@ -18,8 +19,22 @@ export class CategoriesService {
     return newCategory;
   }
 
-  findAll() {
-    return this.categoryRepository.find({ relations: ["menus"] });
+  async findAll() {
+    const categoryRepository = await this.categoryRepository.createQueryBuilder("category");
+    const date = getDateByNow();
+
+    return await categoryRepository
+      .leftJoinAndMapMany("category.menus", "category.menus", "menu")
+      .leftJoinAndMapOne(
+        "menu.saleByDate",
+        "menu.saleByDate",
+        "saleByDate",
+        "saleByDate.date = :date",
+        { date },
+      )
+      .orderBy("saleByDate.count", "DESC")
+      .select(["category", "menu", "saleByDate"])
+      .getMany();
   }
 
   findOne(id: number) {

@@ -1,5 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { getDateByNow } from "@utils/getDateByNow";
 import { FindOneOptions } from "typeorm";
 import { CreateMenuDto } from "./dto/createMenu.dto";
 import { UpdateMenuDto } from "./dto/updateMenu.dto";
@@ -12,9 +13,7 @@ export class MenusService {
   async create(createMenuDto: CreateMenuDto) {
     const { name } = createMenuDto;
     try {
-      const isAlready = await this.menuRepository.findOneBy({
-        name,
-      });
+      const isAlready = await this.menuRepository.findOneBy({ name });
 
       if (isAlready) throw new Error("이미 존재하는 메뉴입니다.");
 
@@ -26,13 +25,29 @@ export class MenusService {
     }
   }
 
-  findAll() {
-    return this.menuRepository.find({
-      relations: { category: true },
-    });
+  async findAll() {
+    const menuRepository = await this.menuRepository.createQueryBuilder("menu");
+    const date = getDateByNow();
+
+    return await menuRepository
+      .select([
+        "menu.id as id",
+        "menu.name as name",
+        "menu.imgUrl as imgUrl",
+        "menu.price as price",
+        "category.name as categoryName",
+        "ifnull(saleByDate.count, 0) as sellCount",
+        "menu.createdAt as createdAt",
+        "menu.updatedAt as updatedAt",
+      ])
+      .leftJoin("menu.saleByDate", "saleByDate", "saleByDate.date = :date", { date })
+      .leftJoin("menu.category", "category", "category.id = menu.categoryId")
+      .groupBy("menu.id, saleByDate.count")
+      .orderBy("sellCount", "DESC")
+      .execute();
   }
 
-  findOne(id: number) {
+  async findOne(id: number) {
     return this.menuRepository.findOne({
       where: { id },
       relations: {
@@ -40,7 +55,6 @@ export class MenusService {
         options: {
           details: true,
         },
-        saleByDate: true,
       },
     });
   }
@@ -54,6 +68,6 @@ export class MenusService {
   }
 
   delete(id: number) {
-    return this.menuRepository.softDelete(id);
+    return this.menuRepository.delete(id);
   }
 }

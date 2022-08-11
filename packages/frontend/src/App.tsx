@@ -12,6 +12,9 @@ import { requestGetCategories } from "src/apis/category";
 import { ICategory, ICategoryRes } from "src/types/category";
 import MenuList from "./components/UI/organisms/MenuList";
 import MainContent from "./components/UI/organisms/MainContent";
+import Cart from "./components/UI/organisms/Cart";
+import { CartProvider } from "./contexts/CartContext";
+import { MenuProvider } from "./contexts/MenuContext";
 
 function App() {
   const [selectedCategory, setSelected] = useState<ICategory | null>(null);
@@ -58,19 +61,24 @@ function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <GlobalStyle theme={theme} />
-      <AppLayout>
-        {categories && (
-          <Header
-            selectedCategory={selectedCategory}
-            categories={categories}
-            onSelectCategory={onSelectCategory}
-          />
-        )}
-        <MainContent pageAction={pageAction}>
-          <MenuList menus={selectedMenus} />
-        </MainContent>
-      </AppLayout>
+      <CartProvider>
+        <MenuProvider>
+          <GlobalStyle theme={theme} />
+          <AppLayout>
+            {categories && (
+              <Header
+                selectedCategory={selectedCategory}
+                categories={categories}
+                onSelectCategory={onSelectCategory}
+              />
+            )}
+            <MainContent pageAction={pageAction}>
+              <MenuList menus={selectedMenus} />
+            </MainContent>
+            <Cart />
+          </AppLayout>
+        </MenuProvider>
+      </CartProvider>
     </ThemeProvider>
   );
 }

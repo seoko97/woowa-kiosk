@@ -11,7 +11,7 @@ const DetailContent = ({ children }: Props) => {
   return (
     <>
       <DetailContentHeader onClick={handleShowOptions} isShowOptions={isShowOptions}>
-        {isShowOptions ? "닫기" : "열기"}
+        옵션 {isShowOptions ? "닫기" : "열기"}
       </DetailContentHeader>
       <Container isShowOptions={isShowOptions}>{children}</Container>
     </>
@@ -47,6 +47,7 @@ const DetailContentHeader = styled.div<{ isShowOptions: boolean }>`
 
   border-radius: 10px 10px 0 0;
   box-shadow: 0px -10px 20px rgba(0, 0, 0, 0.1);
+  font-size: 1.2rem;
 
   display: flex;
   align-items: center;

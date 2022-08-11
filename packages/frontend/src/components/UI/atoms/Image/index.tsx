@@ -6,7 +6,7 @@ type Props = React.ImgHTMLAttributes<HTMLImageElement>;
 const Image = ({ width = "100%", height = "70%", ...props }: Props) => {
   return (
     <StyledImage width={width} height={height}>
-      <img {...props} />
+      <img alt="img" {...props} />
     </StyledImage>
   );
 };

@@ -1,0 +1,20 @@
+name: attach
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  attach:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: fifsky executing remote ssh commands using key
+        uses: fifsky/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          user: ${{ secrets.USER }}
+          key: ${{ secrets.SSH_KEY }}
+          command: |
+            cd ~
+            ./deploy.sh

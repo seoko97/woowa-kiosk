@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@categories/*": ["src/categories/*"],
+      "@common/*": ["src/common/*"],
+      "@menus/*": ["src/menus/*"],
+      "@options/*": ["src/options/*"],
+      "@optionDetails/*": ["src/optionDetails/*"],
+      "@orders/*": ["src/orders/*"],
+      "@orderDetails/*": ["src/orderDetails/*"],
+      "@orderSnapShot/*": ["src/orderSnapShot/*"],
+      "@utils/*": ["src/utils/*"],
+      "@src/*": ["src/*"]
+    }
+  }
+}

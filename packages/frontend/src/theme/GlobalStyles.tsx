@@ -15,16 +15,7 @@ const GlobalStyle = ({ theme }: Props) => (
         -ms-overflow-style: none;
         scrollbar-width: none;
         background-color: ${theme.BACKGROUND};
-
-        @media (max-width: ${theme.BP.KIOSK}) {
-          font-size: 20px;
-        }
-        @media (max-width: ${theme.BP.TABLET}) {
-          font-size: 16px;
-        }
-        @media (max-width: ${theme.BP.MOBILE}) {
-          font-size: 12px;
-        }
+        font-size: 20px;
       }
 
       body,
@@ -39,7 +30,7 @@ const GlobalStyle = ({ theme }: Props) => (
       }
 
       * {
-        font-family: "Jua", "Noto Sans", "Quicksand", sans-serif !important;
+        font-family: "Jua", sans-serif !important;
         box-sizing: border-box;
       }
     `}

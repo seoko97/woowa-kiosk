@@ -40,4 +40,11 @@ interface ICreateOrderDto extends Omit<IOrder, "orderDetails"> {
   orderDetails: IOrder;
 }
 
-export type { IOrder, IOrderDetail, IOrderOptionSnapShot, IRequestCreateOrder, ICreateOrderDto };
+export type {
+  IOrder,
+  IOrderDetail,
+  IOrderOptionSnapShot,
+  IOrderRes,
+  IRequestCreateOrder,
+  ICreateOrderDto,
+};

@@ -54,6 +54,7 @@ const Header = ({ categories, selectedCategory, onSelectCategory }: Props) => {
 };
 
 const Container = styled(RowFrame)`
+  width: 100%;
   position: sticky;
   top: 0;
   left: 0;
@@ -72,7 +73,7 @@ const StyledHeader = styled.section`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   overflow-x: auto;
   flex-wrap: nowrap;
   cursor: pointer;

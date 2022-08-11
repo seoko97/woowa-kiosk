@@ -5,6 +5,7 @@ import { IOrderDetail } from "src/types/order";
 import { getLocaleStringNumber } from "src/utils/getLocaleStringNumber";
 import CloseButton from "../../atoms/CloseButton";
 import Image from "../../atoms/Image";
+import Text from "../../atoms/Text";
 import CountIndicator from "../CountIndicator";
 
 interface Props {
@@ -40,7 +41,7 @@ const CartItem = ({ item, deleteItem }: Props) => {
       <CloseButton className="delete" onClick={onClickDeleteButton} />
       <Image src={menuImgUrl} />
       <CountIndicator count={count} countHandler={countHandler} />
-      <p>{getLocaleStringNumber(totalPrice)}원</p>
+      <Text type="DESCRIPTION">{getLocaleStringNumber(totalPrice)}원</Text>
     </Container>
   );
 };

@@ -1,5 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:3065/api";
+axios.defaults.baseURL =
+  process.env.NODE_ENV === "development" ? "http://localhost:3065/api" : process.env.HOST;
 
 export default axios;

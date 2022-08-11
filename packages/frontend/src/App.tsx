@@ -11,7 +11,7 @@ import { requestGetCategories } from "src/apis/category";
 
 import { ICategory, ICategoryRes } from "src/types/category";
 import MenuList from "./components/UI/organisms/MenuList";
-import MainContent from "./components/UI/organisms/MainContent";
+import MainContent from "./components/UI/template/MainContent";
 import Cart from "./components/UI/organisms/Cart";
 import { CartProvider } from "./contexts/CartContext";
 import { MenuProvider } from "./contexts/MenuContext";

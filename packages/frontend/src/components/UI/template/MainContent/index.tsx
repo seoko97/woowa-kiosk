@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import React, { useCallback, useEffect, useRef } from "react";
-import RowFrame from "../../template/RowFrame";
+import RowFrame from "../RowFrame";
 
 interface Props {
   children: React.ReactNode;
@@ -17,14 +17,12 @@ const MainContent: React.FC<Props> = ({ children, pageAction }) => {
   const onAnimationStart = useCallback(() => {
     if (!currentRef.current) return;
 
-    currentRef.current.removeAttribute("style");
-
     if (pageAction === "next") {
       currentRef.current.style.animation = "prevPage 0.5s forwards";
     } else if (pageAction === "prev") {
       currentRef.current.style.animation = "nextPage 0.5s forwards";
     }
-  }, [pageAction, children]);
+  }, [pageAction]);
 
   const onAnimationEnd = useCallback(() => {
     if (!currentRef.current) return;
@@ -42,7 +40,7 @@ const Container = styled(RowFrame)`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  flex: 1;
+  overflow: hidden;
 
   @keyframes nextPage {
     0% {

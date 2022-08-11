@@ -1,7 +1,7 @@
 import { useCallback, useState } from "react";
 import styled from "@emotion/styled";
 import DetailMenu from "src/components/modals/DetailMenuModal";
-import Menu from "src/components/UI/molecules/Menu";
+import MenuItem from "src/components/UI/molecules/MenuItem";
 import useModal from "src/hooks/useModal";
 import { IMenusRes } from "src/types/menu";
 
@@ -22,7 +22,7 @@ const MenuList = ({ menus }: Props) => {
     <>
       <Container>
         {menus.map((menu) => (
-          <Menu onClick={onClickMenu} key={menu.id} menu={menu} />
+          <MenuItem onClick={onClickMenu} key={menu.id} menu={menu} />
         ))}
       </Container>
       {isOpen && selectedMenu && <DetailMenu onClose={onClose} menu={selectedMenu} />}

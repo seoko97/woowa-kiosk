@@ -12,6 +12,7 @@ interface IOrderDetail {
   count: number;
   menuName: string;
   menuPrice: number;
+  menuImgUrl: string;
   options: IOrderOptionSnapShot[];
 }
 

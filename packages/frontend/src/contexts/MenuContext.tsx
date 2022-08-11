@@ -4,13 +4,21 @@ import { getValidItemIndex } from "src/utils/getValidItemIndex";
 
 interface Props {
   children: React.ReactNode;
-  initialState: IOrderDetail;
 }
 
 interface IMenuActionContext {
   optionHandler: (snapShot: IOrderOptionSnapShot, checked: boolean, isDuplicate: boolean) => void;
   countHandler: (count: number) => void;
+  initMenu: (menu: IOrderDetail) => void;
 }
+
+const initialState: IOrderDetail = {
+  menuImgUrl: "",
+  menuName: "",
+  menuPrice: 0,
+  count: 0,
+  options: [],
+};
 
 export const MenuContext = createContext<IOrderDetail | null>(null);
 export const MenuActionContext = createContext<IMenuActionContext | null>(null);
@@ -18,7 +26,7 @@ export const MenuActionContext = createContext<IMenuActionContext | null>(null);
 export const useMenuContext = () => useContext(MenuContext);
 export const useMenuActionContext = () => useContext(MenuActionContext);
 
-export const MenuProvider = ({ children, initialState }: Props) => {
+export const MenuProvider = ({ children }: Props) => {
   const [order, setOrder] = useState<IOrderDetail>(initialState);
 
   const action: IMenuActionContext = useMemo(
@@ -56,6 +64,9 @@ export const MenuProvider = ({ children, initialState }: Props) => {
 
           return newOrder;
         });
+      },
+      initMenu: (menu) => {
+        setOrder(menu);
       },
     }),
     [],

@@ -14,8 +14,7 @@
     "dev:client": "yarn workspace client run start",
     "build:client": "yarn workspace client run build",
     "test:client": "yarn workspace client run test",
-    "dev:server": "yarn workspace server run start:dev",
-    "start:server": "yarn workspace server run start:prod",
+    "start:server": "yarn workspace server run start:dev",
     "build:server": "yarn workspace server run build",
     "test:server": "yarn workspace server run test"
   },

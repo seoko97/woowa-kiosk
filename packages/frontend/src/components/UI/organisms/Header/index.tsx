@@ -60,6 +60,7 @@ const Container = styled(RowFrame)`
   right: 0;
   z-index: 1;
   display: flex;
+  width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -72,7 +73,7 @@ const StyledHeader = styled.section`
   width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   overflow-x: auto;
   flex-wrap: nowrap;
   cursor: pointer;

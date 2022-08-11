@@ -6,7 +6,7 @@ interface Props {
   children: React.ReactNode;
 }
 
-interface IMenuActionContext {
+export interface IMenuActionContext {
   optionHandler: (snapShot: IOrderOptionSnapShot, checked: boolean, isDuplicate: boolean) => void;
   countHandler: (count: number) => void;
   initMenu: (menu: IOrderDetail) => void;

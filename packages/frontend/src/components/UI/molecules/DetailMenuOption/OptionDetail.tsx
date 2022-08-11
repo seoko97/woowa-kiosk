@@ -31,6 +31,7 @@ const OptionDetail = ({ detail, optionName, isDefaultChecked, isDuplicate }: Pro
   return (
     <Container>
       <CheckBox
+        data-testid={name + id}
         type={typeName}
         id={optionName + id}
         name={optionName}

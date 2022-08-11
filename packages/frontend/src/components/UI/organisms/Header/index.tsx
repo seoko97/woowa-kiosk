@@ -54,13 +54,13 @@ const Header = ({ categories, selectedCategory, onSelectCategory }: Props) => {
 };
 
 const Container = styled(RowFrame)`
+  width: 100%;
   position: sticky;
   top: 0;
   left: 0;
   right: 0;
   z-index: 1;
   display: flex;
-  width: 100%;
   flex-direction: column;
   align-items: center;
   justify-content: center;

@@ -25,7 +25,7 @@ const DetailMenuFooter = ({ onCloseModal, updateCart }: Props) => {
       <Button onClick={onCloseModal} bColor="ERROR" size="lg">
         취소
       </Button>
-      <Button onClick={updateCart} size="lg">
+      <Button onClick={updateCart} size="lg" disabled={count === 0}>
         총 {getLocaleStringNumber(totalPrice)}원 담기
       </Button>
     </Container>
@@ -38,12 +38,13 @@ const Container = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-top: auto;
-  padding: 16px;
+  padding: 2rem;
 
   gap: 20px;
 
   & > button {
     flex: 1;
+    height: 8rem;
   }
 `;
 

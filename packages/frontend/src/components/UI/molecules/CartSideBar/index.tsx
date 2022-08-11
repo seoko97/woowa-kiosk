@@ -1,12 +1,14 @@
 import styled from "@emotion/styled";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import OrderModal from "src/components/modals/OrderModal";
-import { useCart } from "src/contexts/CartContext";
+import { useCart, useCartAction } from "src/contexts/CartContext";
+import { useClearTimer } from "src/hooks/useClearTimer";
 import useModal from "src/hooks/useModal";
 import { getLocaleStringNumber } from "src/utils/getLocaleStringNumber";
 import Button from "../../atoms/Button";
 
 const CartSideBar = () => {
+  const { clearCart } = useCartAction();
   const cartItems = useCart();
   const isDisabled = useMemo(() => cartItems.length === 0, [cartItems]);
   const [isOpenModal, openModal, closeModal] = useModal();
@@ -25,6 +27,15 @@ const CartSideBar = () => {
     }, 0);
   }, [cartItems]);
 
+  const [, startTimer] = useClearTimer(() => {
+    clearCart();
+  }, 300000);
+
+  useEffect(() => {
+    if (cartItems.length === 0) return;
+    startTimer();
+  }, [cartItems, startTimer]);
+
   return (
     <>
       <Container>
@@ -32,7 +43,10 @@ const CartSideBar = () => {
           <span>총 </span>
           <span>{getLocaleStringNumber(totalPrice)}원</span>
         </section>
-        <Button size="lg" disabled={isDisabled} onClick={openModal}>
+        <Button size="md" bColor="ERROR" disabled={isDisabled} onClick={clearCart}>
+          비우기
+        </Button>
+        <Button size="md" disabled={isDisabled} onClick={openModal}>
           결제
         </Button>
       </Container>
@@ -46,11 +60,11 @@ const Container = styled.aside`
 
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  gap: 2rem;
+  justify-content: center;
+  gap: 1.2rem;
 
   & > section {
-    width: 100%;
+    flex: 1;
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
@@ -59,10 +73,14 @@ const Container = styled.aside`
   }
 
   & > button {
-    width: 100%;
+    width: 200px;
     max-width: 300px;
   }
 
+  & > .time {
+    font-size: 1.5rem;
+    bottom: 1rem;
+  }
   @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
     & > button {
       max-width: 10rem;

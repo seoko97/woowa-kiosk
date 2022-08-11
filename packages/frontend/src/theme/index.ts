@@ -12,8 +12,8 @@ export const FONT_SIZE = {
 
 const BUTTON_SIZE = {
   sm: "1rem",
-  md: "1rem 1.5rem",
-  lg: "1.5rem 2rem",
+  md: "1.2rem 1.4rem",
+  lg: "1.6rem 2rem",
 };
 
 export const theme = Object.freeze({

@@ -48,15 +48,16 @@ const Form = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
+  font-size: 1em;
+  gap: 1em;
 
   & > .count {
-    font-size: 3rem;
+    min-width: 1.5em;
+    font-size: 1.8em;
     text-align: center;
   }
 
   & > button {
-    font-size: 1em;
     width: 2em;
     cursor: pointer;
     & svg {

@@ -4,10 +4,8 @@ import { IMenuRes, IMenusRes } from "src/types/menu";
 import ModalLayout from "./ModalLayout";
 import { requestGetMenuById } from "src/apis/menu";
 import DetailMenu from "../UI/organisms/DetailMenu";
-import { MenuProvider } from "src/contexts/MenuContext";
 import { getOptionDetail } from "src/utils/optionDetail";
-import { IOrderDetail } from "src/types/order";
-import { CartProvider } from "src/contexts/CartContext";
+import { useMenuAction } from "src/contexts/MenuContext";
 
 interface Props {
   onClose: () => void;
@@ -15,19 +13,20 @@ interface Props {
 }
 
 const DetailMenuModal = ({ onClose, menu }: Props) => {
+  const { initMenu } = useMenuAction();
   const ref = useRef<HTMLDivElement>(null);
   const [isClose, setIsClose] = useState(false);
   const [selectedMenu, setSelectedMenu] = useState<IMenuRes | null>(null);
-  const [initOrderState, setInitOrderState] = useState<IOrderDetail | null>(null);
 
   const getMenu = async () => {
     const data = await requestGetMenuById(menu.id);
 
     setSelectedMenu(data);
-    setInitOrderState({
+    initMenu({
       count: 0,
       menuName: data.name,
       menuPrice: data.price,
+      menuImgUrl: data.imgUrl,
       options: getOptionDetail(data.options),
     });
     setTimeout(() => ref.current?.classList.add("active"), 50);
@@ -47,18 +46,10 @@ const DetailMenuModal = ({ onClose, menu }: Props) => {
     setTimeout(() => onClose(), 300);
   }, [isClose]);
 
-  if (!initOrderState) return <></>;
-
   return (
-    <ModalLayout isClose={isClose} onClose={onCloseModal}>
+    <ModalLayout onClose={onCloseModal}>
       <Container ref={ref}>
-        {selectedMenu && (
-          <CartProvider>
-            <MenuProvider initialState={initOrderState}>
-              <DetailMenu onCloseModal={onCloseModal} menu={selectedMenu} />
-            </MenuProvider>
-          </CartProvider>
-        )}
+        {selectedMenu && <DetailMenu onCloseModal={onCloseModal} menu={selectedMenu} />}
       </Container>
     </ModalLayout>
   );
@@ -67,6 +58,7 @@ const DetailMenuModal = ({ onClose, menu }: Props) => {
 const Container = styled.div`
   position: relative;
   width: 1040px;
+  height: 100vh;
   background-color: #fff;
   z-index: 101;
   top: 100%;
@@ -79,6 +71,10 @@ const Container = styled.div`
   }
   &.disabled {
     pointer-events: none;
+  }
+
+  @media (max-width: ${({ theme }) => theme.BP.KIOSK}) {
+    width: 100%;
   }
 `;
 

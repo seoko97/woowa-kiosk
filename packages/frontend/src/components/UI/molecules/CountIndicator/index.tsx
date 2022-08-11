@@ -14,7 +14,7 @@ const CountIndicator = ({ count, countHandler }: Props) => {
       e.preventDefault();
       countHandler(count + 1);
     },
-    [count],
+    [count, countHandler],
   );
 
   const decreaseCount: MouseEventHandler<HTMLButtonElement> = useCallback(
@@ -27,16 +27,16 @@ const CountIndicator = ({ count, countHandler }: Props) => {
 
       countHandler(count - 1);
     },
-    [count],
+    [count, countHandler],
   );
 
   return (
     <Form>
-      <button name="increase" onClick={increaseCount}>
+      <button data-testid="increase" name="increase" onClick={increaseCount}>
         <PlusIcon />
       </button>
       <span className="count">{count}</span>
-      <button name="decrease" onClick={decreaseCount}>
+      <button data-testid="decrease" name="decrease" onClick={decreaseCount} disabled={count === 0}>
         <MinusIcon />
       </button>
     </Form>
@@ -58,11 +58,19 @@ const Form = styled.div`
   }
 
   & > button {
-    width: 2em;
+    font-size: 1rem;
+    width: 2.2em;
     cursor: pointer;
     & svg {
       width: 100%;
       fill: ${({ theme }) => theme.BODY};
+    }
+
+    &:disabled {
+      & svg {
+        width: 100%;
+        fill: ${({ theme }) => theme.PLACEHOLDER};
+      }
     }
   }
 `;

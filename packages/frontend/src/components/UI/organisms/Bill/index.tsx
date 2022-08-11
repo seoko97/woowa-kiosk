@@ -19,7 +19,7 @@ interface Props {
   successHandler: (value: boolean) => void;
 }
 
-const Bill = ({ payment, inputPrice, onClose, loadingHandler }: Props) => {
+const Bill = ({ payment, inputPrice, onClose, loadingHandler, successHandler }: Props) => {
   const cartItems = useCart();
   const { clearCart } = useCartAction();
   const [bill, setBill] = useState<IOrderRes | null>(null);
@@ -35,10 +35,12 @@ const Bill = ({ payment, inputPrice, onClose, loadingHandler }: Props) => {
     }, 0);
   }, [cartItems]);
 
-  const [time, startTimer] = useClearTimer(() => {
+  const onClear = () => {
     onClose();
     clearCart();
-  }, 10000);
+  };
+
+  const [time, startTimer] = useClearTimer(onClear, 10000);
 
   const createOrder = useCallback(async () => {
     const data: IOrder = {
@@ -53,6 +55,7 @@ const Bill = ({ payment, inputPrice, onClose, loadingHandler }: Props) => {
 
     setTimeout(() => {
       loadingHandler(false);
+      successHandler(true);
       setBill(result);
       startTimer();
     }, 2000);
@@ -85,7 +88,7 @@ const Bill = ({ payment, inputPrice, onClose, loadingHandler }: Props) => {
             <p>잔돈: {getLocaleStringNumber(bill.inputPrice - bill.totalPrice)}</p>
           </div>
           <p>{`(주의: 이 화면은 ${time}초뒤 사라집니다.)`}</p>
-          <Button size="md" onClick={onClose}>
+          <Button size="md" onClick={onClear}>
             주문하러가기
           </Button>
         </>

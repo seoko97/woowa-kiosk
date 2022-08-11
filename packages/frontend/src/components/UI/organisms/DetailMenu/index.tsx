@@ -28,8 +28,9 @@ const DetailMenu = ({ menu, onCloseModal }: Props) => {
       if (count === 0) return;
 
       addCartItem({ ...menuState });
+      onCloseModal();
     },
-    [menuState],
+    [menuState, onCloseModal, addCartItem],
   );
 
   return (

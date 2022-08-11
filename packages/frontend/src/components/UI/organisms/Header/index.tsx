@@ -63,7 +63,9 @@ const Container = styled(RowFrame)`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: ${({ theme }) => theme.BACKGROUND};
+  background-color: ${({ theme }) => theme.OFF_WHITE};
+  padding: 1rem;
+  border-radius: 0 0 10px 10px;
 `;
 
 const StyledHeader = styled.section`
@@ -74,8 +76,6 @@ const StyledHeader = styled.section`
   overflow-x: auto;
   flex-wrap: nowrap;
   cursor: pointer;
-
-  padding: 1rem;
 `;
 
 export default memo(Header);

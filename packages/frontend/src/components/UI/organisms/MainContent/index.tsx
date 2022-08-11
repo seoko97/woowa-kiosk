@@ -40,8 +40,9 @@ const MainContent: React.FC<Props> = ({ children, pageAction }) => {
 
 const Container = styled(RowFrame)`
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
+  flex: 1;
 
   @keyframes nextPage {
     0% {

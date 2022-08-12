@@ -54,7 +54,6 @@ const OrderModal = ({ onClose }: Props) => {
       case "PAYMENT":
         return <PaymentForm onNextStep={onNextStep} paymentHandler={paymentHandler} />;
       case "IN_MONEY":
-        return <></>;
       case "BILL":
         return (
           <Bill

@@ -28,13 +28,24 @@ export const CartProvider = ({ children }: Props) => {
         setCarts((prev) => {
           const newCart = [...prev];
 
-          const sameNameItems = newCart.filter((item) => item.menuName === cartItem.menuName);
-          const _item = sameNameItems.filter((_item) =>
-            checkSameCartItem(_item.options, cartItem.options),
-          );
+          let idx = -1;
+
+          const _item = newCart.filter((item, i) => {
+            if (item.menuName !== cartItem.menuName) {
+              return false;
+            }
+
+            const isValid = checkSameCartItem(item.options, cartItem.options);
+
+            if (!isValid) {
+              return false;
+            }
+
+            idx = i;
+            return isValid;
+          });
 
           if (_item.length > 0) {
-            const idx = sameNameItems.findIndex((item) => item === _item[0]);
             const newItem: IOrderDetail = { ..._item[0] };
 
             newItem.count += cartItem.count;

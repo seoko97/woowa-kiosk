@@ -44,7 +44,6 @@ const Container = styled.div`
 
   & > button {
     flex: 1;
-    height: 8rem;
   }
 `;
 

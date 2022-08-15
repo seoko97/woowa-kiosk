@@ -24,10 +24,9 @@ const Container = styled.form`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  flex-wrap: nowrap;
   gap: 4rem;
-  overflow: auto;
-  padding: 16px;
+  overflow-y: auto;
+  padding: 1rem;
 `;
 
 export default DetailMenuOption;

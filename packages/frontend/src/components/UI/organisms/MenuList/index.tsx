@@ -13,10 +13,13 @@ const MenuList = ({ menus }: Props) => {
   const [selectedMenu, setSelectedMenu] = useState<IMenusRes | null>(null);
   const [isOpen, onOpen, onClose] = useModal();
 
-  const onClickMenu = useCallback((menu: IMenusRes) => {
-    setSelectedMenu(menu);
-    onOpen();
-  }, []);
+  const onClickMenu = useCallback(
+    (menu: IMenusRes) => {
+      setSelectedMenu(menu);
+      onOpen();
+    },
+    [onOpen],
+  );
 
   return (
     <>
@@ -32,11 +35,14 @@ const MenuList = ({ menus }: Props) => {
 
 const Container = styled.section`
   width: 100%;
+  flex: 1;
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   padding: 1rem;
   gap: 2rem 1.2rem;
+
+  overflow: auto;
 
   @media (max-width: ${({ theme }) => theme.BP.TABLET}) {
     grid-template-columns: repeat(3, 1fr);

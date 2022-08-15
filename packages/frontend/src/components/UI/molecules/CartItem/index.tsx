@@ -39,7 +39,7 @@ const CartItem = ({ item, deleteItem }: Props) => {
   return (
     <Container>
       <CloseButton className="delete" onClick={onClickDeleteButton} />
-      <Image src={menuImgUrl} />
+      <Image src={menuImgUrl} width="100%" />
       <CountIndicator count={count} countHandler={countHandler} />
       <Text type="DESCRIPTION">{getLocaleStringNumber(totalPrice)}원</Text>
     </Container>

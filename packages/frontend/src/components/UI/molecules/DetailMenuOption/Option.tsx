@@ -32,12 +32,20 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
+  padding: 0 2rem;
 `;
 
 const Inner = styled.div`
   width: 100%;
   display: flex;
-  gap: 3.5rem;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+
+  @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
 `;
 
 export default Option;

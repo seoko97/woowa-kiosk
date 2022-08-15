@@ -21,7 +21,7 @@ const OrderItem = ({ menu }: Props) => {
 const Container = styled.div`
   flex: 0 0 auto;
   width: 100%;
-  height: 200px;
+  height: 10rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;

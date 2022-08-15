@@ -6,14 +6,14 @@ const BP = {
 
 export const FONT_SIZE = {
   sm: "1rem",
-  md: "1.4rem",
-  lg: "1.8rem",
+  md: "1.2rem",
+  lg: "1.4rem",
 };
 
 const BUTTON_SIZE = {
   sm: "1rem",
   md: "1.2rem 1.4rem",
-  lg: "1.6rem 2rem",
+  lg: "1.4rem 1.6rem",
 };
 
 export const theme = Object.freeze({

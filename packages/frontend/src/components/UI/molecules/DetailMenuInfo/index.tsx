@@ -16,7 +16,7 @@ const DetailMenuInfo = ({ menuInfo }: Props) => {
   return (
     <Container>
       <Image src={imgUrl} />
-      <h3>{name}</h3>
+      <h4>{name}</h4>
       <CountIndicator count={count} countHandler={countHandler} />
     </Container>
   );

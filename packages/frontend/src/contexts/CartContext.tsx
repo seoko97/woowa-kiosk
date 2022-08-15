@@ -22,79 +22,84 @@ export const useCartActionContext = () => useContext(CartActionContext);
 export const CartProvider = ({ children }: Props) => {
   const [carts, setCarts] = useState<IOrderDetail[]>([]);
 
-  const action = useMemo(
-    () => ({
-      addCartItem: (cartItem: IOrderDetail) => {
-        setCarts((prev) => {
-          const newCart = [...prev];
+  const addCartItem = (cartItem: IOrderDetail) => {
+    setCarts((prev) => {
+      const newCart = [...prev];
 
-          let idx = -1;
+      let idx = -1;
 
-          const _item = newCart.filter((item, i) => {
-            if (item.menuName !== cartItem.menuName) {
-              return false;
-            }
+      const _item = newCart.filter((item, i) => {
+        if (item.menuName !== cartItem.menuName) {
+          return false;
+        }
 
-            const isValid = checkSameCartItem(item.options, cartItem.options);
+        const isValid = checkSameCartItem(item.options, cartItem.options);
 
-            if (!isValid) {
-              return false;
-            }
+        if (!isValid) {
+          return false;
+        }
 
-            idx = i;
-            return isValid;
-          });
+        idx = i;
+        return isValid;
+      });
 
-          if (_item.length > 0) {
-            const newItem: IOrderDetail = { ..._item[0] };
+      if (_item.length > 0) {
+        const newItem: IOrderDetail = { ..._item[0] };
 
-            newItem.count += cartItem.count;
-            newCart.splice(idx, 1, newItem);
-          } else {
-            newCart.push({ ...cartItem });
-          }
+        newItem.count += cartItem.count;
+        newCart.splice(idx, 1, newItem);
+      } else {
+        newCart.push({ ...cartItem });
+      }
 
-          return newCart;
-        });
-      },
-      deleteCartItem: (cartItem: IOrderDetail) => {
-        setCarts((prev) => {
-          const newOrder = [...prev];
-          const idx = newOrder.findIndex((item) => item === cartItem);
+      return newCart;
+    });
+  };
 
-          if (idx === -1) {
-            return prev;
-          }
+  const deleteCartItem = (cartItem: IOrderDetail) => {
+    setCarts((prev) => {
+      const newOrder = [...prev];
+      const idx = newOrder.findIndex((item) => item === cartItem);
 
-          newOrder.splice(idx, 1);
+      if (idx === -1) {
+        return prev;
+      }
 
-          return newOrder;
-        });
-      },
-      itemCountHandler: (cartItem: IOrderDetail, num: number) => {
-        setCarts((prev) => {
-          const newOrder = [...prev];
+      newOrder.splice(idx, 1);
 
-          const idx = newOrder.findIndex((item) => item === cartItem);
+      return newOrder;
+    });
+  };
 
-          if (idx === -1) {
-            return prev;
-          }
+  const itemCountHandler = (cartItem: IOrderDetail, num: number) => {
+    setCarts((prev) => {
+      const newOrder = [...prev];
 
-          const newItem = { ...newOrder[idx] };
-          newItem.count = num;
+      const idx = newOrder.findIndex((item) => item === cartItem);
 
-          newOrder.splice(idx, 1, newItem);
+      if (idx === -1) {
+        return prev;
+      }
 
-          return newOrder;
-        });
-      },
-      clearCart: () => {
-        setCarts([]);
-      },
-    }),
-    [],
-  );
+      const newItem = { ...newOrder[idx] };
+      newItem.count = num;
+
+      newOrder.splice(idx, 1, newItem);
+
+      return newOrder;
+    });
+  };
+
+  const clearCart = () => {
+    setCarts([]);
+  };
+
+  const action: ICartActionContext = {
+    clearCart,
+    itemCountHandler,
+    deleteCartItem,
+    addCartItem,
+  };
 
   return (
     <CartActionContext.Provider value={action}>

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { memo } from "react";
 import { IMenusRes } from "src/types/menu";
 import { getLocaleStringNumber } from "src/utils/getLocaleStringNumber";
 import Image from "../../atoms/Image";
@@ -36,4 +37,4 @@ const Container = styled.div`
   }
 `;
 
-export default Menu;
+export default memo(Menu, (prev, next) => prev.menu === next.menu);

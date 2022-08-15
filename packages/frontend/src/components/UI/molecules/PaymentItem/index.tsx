@@ -17,7 +17,7 @@ const Container = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: 3rem;
+  font-size: 2.5rem;
   cursor: pointer;
   transition: background-color 0.3s;
 

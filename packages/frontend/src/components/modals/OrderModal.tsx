@@ -74,7 +74,6 @@ const OrderModal = ({ onClose }: Props) => {
       <Container>
         {!loading && <CloseButton className="close" onClick={checkClose} />}
         {checkCompos}
-        <div></div>
       </Container>
     </ModalLayout>
   );

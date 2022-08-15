@@ -27,21 +27,37 @@ const CartSideBar = () => {
     }, 0);
   }, [cartItems]);
 
-  const [, startTimer] = useClearTimer(() => {
-    clearCart();
-  }, 300000);
+  const [time, startTimer, stopTimer, setClearTime] = useClearTimer(
+    () => {
+      clearCart();
+    },
+    500000,
+    [cartItems],
+  );
 
   useEffect(() => {
-    if (cartItems.length === 0) return;
-    startTimer();
-  }, [cartItems, startTimer]);
+    if (isOpenModal) {
+      stopTimer();
+    } else {
+      setClearTime();
+      if (cartItems.length === 0) {
+        stopTimer();
+        return;
+      }
+
+      startTimer();
+    }
+  }, [isOpenModal, cartItems]);
 
   return (
     <>
       <Container>
         <section>
-          <span>총 </span>
-          <span>{getLocaleStringNumber(totalPrice)}원</span>
+          <span>{time}초 남았습니다.</span>
+          <p>
+            <span>총 </span>
+            <span>{getLocaleStringNumber(totalPrice)}원</span>
+          </p>
         </section>
         <section>
           <Button size="md" bColor="ERROR" disabled={isDisabled} onClick={clearCart}>
@@ -73,6 +89,10 @@ const Container = styled.aside`
     justify-content: flex-end;
     gap: 0.8rem;
     font-size: 1.2rem;
+  }
+
+  & > section:first-of-type {
+    justify-content: space-between;
   }
 
   & button {

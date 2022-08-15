@@ -34,4 +34,7 @@ const StyledNavItem = styled.div`
   }
 `;
 
-export default memo(NavItem);
+export default memo(
+  NavItem,
+  (prev, next) => prev.text === next.text && prev.className === next.className,
+);

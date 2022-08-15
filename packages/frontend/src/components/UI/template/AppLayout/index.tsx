@@ -11,11 +11,14 @@ const AppLayout = ({ children }: Props) => {
 };
 
 const StyledAppLayout = styled(RowFrame)`
-  position: relative;
   display: flex;
+  height: 100vh;
+
   flex-direction: column;
-  min-height: 100vh;
-  padding-bottom: 20rem;
+  overflow-x: hidden;
+  overflow-y: visible;
+  background-color: ${({ theme }) => theme.BACKGROUND};
+  border: 1px solid ${({ theme }) => theme.LINE};
   z-index: 0;
 `;
 

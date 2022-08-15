@@ -31,7 +31,7 @@ const CartSideBar = () => {
     () => {
       clearCart();
     },
-    500000,
+    30000,
     [cartItems],
   );
 
@@ -44,7 +44,6 @@ const CartSideBar = () => {
         stopTimer();
         return;
       }
-
       startTimer();
     }
   }, [isOpenModal, cartItems]);
@@ -53,7 +52,7 @@ const CartSideBar = () => {
     <>
       <Container>
         <section>
-          <span>{time}초 남았습니다.</span>
+          {cartItems.length !== 0 && <span>{time}초 남았습니다.</span>}
           <p>
             <span>총 </span>
             <span>{getLocaleStringNumber(totalPrice)}원</span>

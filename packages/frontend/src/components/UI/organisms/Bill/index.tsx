@@ -105,14 +105,19 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+  overflow: hidden;
+  gap: 1rem;
+
   & > button {
     width: 100%;
   }
 
   & > .list {
+    border-top: 2px dotted ${({ theme }) => theme.LINE};
+
     font-size: 1rem;
     width: 100%;
-    padding: 0 2rem;
+    padding: 1rem 2rem;
 
     display: flex;
     flex-direction: column;
@@ -121,8 +126,10 @@ const Container = styled.div`
     overflow-y: auto;
     flex-wrap: nowrap;
   }
+
   & > .desc {
-    padding: 0 3rem;
+    border-top: 2px dotted ${({ theme }) => theme.LINE};
+    padding: 1rem 2rem;
     width: 100%;
     display: flex;
     flex-direction: column;

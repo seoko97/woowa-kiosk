@@ -1,4 +1,4 @@
-import { createContext, useContext, useMemo, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import { IOrderDetail, IOrderOptionSnapShot } from "src/types/order";
 import { getValidItemIndex } from "src/utils/getValidItemIndex";
 
@@ -29,48 +29,54 @@ export const useMenuActionContext = () => useContext(MenuActionContext);
 export const MenuProvider = ({ children }: Props) => {
   const [order, setOrder] = useState<IOrderDetail>(initialState);
 
-  const action: IMenuActionContext = useMemo(
-    () => ({
-      optionHandler: (snapShot, checked, isDuplicate) => {
-        setOrder((prev) => {
-          const newOrder: IOrderDetail = { ...prev };
-          const newOptions = [...newOrder.options];
+  const optionHandler = (
+    snapShot: IOrderOptionSnapShot,
+    checked: boolean,
+    isDuplicate: boolean,
+  ) => {
+    setOrder((prev) => {
+      const newOrder: IOrderDetail = { ...prev };
+      const newOptions = [...newOrder.options];
 
-          // 체크되지 않았다면?
-          if (!checked) {
-            // 삭제되는 경우 (이경우는 체크박스만), 옵션이름과 상세이름이 같은(완전 일치) 아이템을 찾아 제거
-            const idx = getValidItemIndex(newOptions, snapShot, ["optionName", "optionDetailName"]);
-            newOptions.splice(idx, 1, { ...snapShot });
-          } else {
-            if (isDuplicate) {
-              // 해당 옵션의 중복이 허용됐다면 추가한다.
-              newOptions.push({ ...snapShot });
-            } else {
-              // 허용되지 않았다면 같은 옵션이름을 가진 스냅샷을 찾아 교체한다.
-              const idx = getValidItemIndex(newOptions, snapShot, ["optionName"]);
-              newOptions.splice(idx, 1, { ...snapShot });
-            }
-          }
+      // 체크되지 않았다면?
+      if (!checked) {
+        // 삭제되는 경우 (이경우는 체크박스만), 옵션이름과 상세이름이 같은(완전 일치) 아이템을 찾아 제거
+        const idx = getValidItemIndex(newOptions, snapShot, ["optionName", "optionDetailName"]);
+        newOptions.splice(idx, 1, { ...snapShot });
+      } else {
+        if (isDuplicate) {
+          // 해당 옵션의 중복이 허용됐다면 추가한다.
+          newOptions.push({ ...snapShot });
+        } else {
+          // 허용되지 않았다면 같은 옵션이름을 가진 스냅샷을 찾아 교체한다.
+          const idx = getValidItemIndex(newOptions, snapShot, ["optionName"]);
+          newOptions.splice(idx, 1, { ...snapShot });
+        }
+      }
 
-          newOrder.options = newOptions;
+      newOrder.options = newOptions;
 
-          return newOrder;
-        });
-      },
-      countHandler: (count) => {
-        setOrder((prev) => {
-          const newOrder = { ...prev };
-          newOrder.count = count;
+      return newOrder;
+    });
+  };
 
-          return newOrder;
-        });
-      },
-      initMenu: (menu) => {
-        setOrder(menu);
-      },
-    }),
-    [],
-  );
+  const countHandler = (count: number) => {
+    setOrder((prev) => {
+      const newOrder = { ...prev };
+      newOrder.count = count;
+
+      return newOrder;
+    });
+  };
+  const initMenu = (menu: IOrderDetail) => {
+    setOrder(menu);
+  };
+
+  const action: IMenuActionContext = {
+    countHandler,
+    initMenu,
+    optionHandler,
+  };
 
   return (
     <MenuActionContext.Provider value={action}>

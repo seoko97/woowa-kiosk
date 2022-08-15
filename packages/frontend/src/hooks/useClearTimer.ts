@@ -28,13 +28,13 @@ export const useClearTimer: IReturn = (cb, delay, values = []) => {
 
     const _delayCallBack = setTimeout(() => {
       cb();
-    }, delay);
+    }, time * 1000);
 
     return () => {
       clearInterval(_timer);
       clearTimeout(_delayCallBack);
     };
-  }, [start, cb, delay, ...values]);
+  }, [start, ...values]);
 
   return [time, startTimer, stopTimer, setClearTime];
 };

@@ -14,8 +14,15 @@ const GlobalStyle = ({ theme }: Props) => (
       html {
         -ms-overflow-style: none;
         scrollbar-width: none;
-        background-color: ${theme.BACKGROUND};
-        font-size: 20px;
+        font-size: 16px;
+
+        @media (max-width: ${theme.BP.TABLET}) {
+          font-size: 14px;
+        }
+
+        @media (max-width: ${theme.BP.MOBILE}) {
+          font-size: 12px;
+        }
       }
 
       body,
@@ -27,6 +34,10 @@ const GlobalStyle = ({ theme }: Props) => (
       body {
         margin: 0;
         user-select: none;
+      }
+
+      #root {
+        background-color: ${theme.BACKGROUND};
       }
 
       * {

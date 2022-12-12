@@ -54,12 +54,6 @@ const Header = ({ categories, selectedCategory, onSelectCategory }: Props) => {
 };
 
 const Container = styled(RowFrame)`
-  width: 100%;
-  position: sticky;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,4 +73,8 @@ const StyledHeader = styled.section`
   cursor: pointer;
 `;
 
-export default memo(Header);
+export default memo(
+  Header,
+  (prev, next) =>
+    prev.categories === next.categories && prev.selectedCategory === next.selectedCategory,
+);

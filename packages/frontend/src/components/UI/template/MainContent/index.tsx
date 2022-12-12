@@ -40,7 +40,8 @@ const Container = styled(RowFrame)`
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  overflow: hidden;
+  overflow: auto;
+  flex: 1;
 
   @keyframes nextPage {
     0% {

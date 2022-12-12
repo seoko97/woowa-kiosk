@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { useRef } from "react";
+import { memo, useRef } from "react";
 import { useCart, useCartAction } from "src/contexts/CartContext";
 import useScrollXTouchSlide from "src/hooks/useScrollXTouchSlide";
 import CartItem from "../../molecules/CartItem";
@@ -31,11 +31,12 @@ const Container = styled.section`
   flex-wrap: nowrap;
   gap: 1.2rem;
   padding: 1rem 0;
+  min-height: 150px;
 
   & > .none {
     width: 100%;
     text-align: center;
-    font-size: 2.5rem;
+    font-size: 2rem;
     color: ${({ theme }) => theme.LABEL};
   }
 `;

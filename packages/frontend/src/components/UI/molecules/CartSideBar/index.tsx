@@ -27,28 +27,45 @@ const CartSideBar = () => {
     }, 0);
   }, [cartItems]);
 
-  const [, startTimer] = useClearTimer(() => {
-    clearCart();
-  }, 300000);
+  const [time, startTimer, stopTimer, setClearTime] = useClearTimer(
+    () => {
+      clearCart();
+    },
+    30000,
+    [cartItems],
+  );
 
   useEffect(() => {
-    if (cartItems.length === 0) return;
-    startTimer();
-  }, [cartItems, startTimer]);
+    if (isOpenModal) {
+      stopTimer();
+    } else {
+      setClearTime();
+      if (cartItems.length === 0) {
+        stopTimer();
+        return;
+      }
+      startTimer();
+    }
+  }, [isOpenModal, cartItems]);
 
   return (
     <>
       <Container>
         <section>
-          <span>총 </span>
-          <span>{getLocaleStringNumber(totalPrice)}원</span>
+          {cartItems.length !== 0 && <span>{time}초 남았습니다.</span>}
+          <p>
+            <span>총 </span>
+            <span>{getLocaleStringNumber(totalPrice)}원</span>
+          </p>
         </section>
-        <Button size="md" bColor="ERROR" disabled={isDisabled} onClick={clearCart}>
-          비우기
-        </Button>
-        <Button size="md" disabled={isDisabled} onClick={openModal}>
-          결제
-        </Button>
+        <section>
+          <Button size="md" bColor="ERROR" disabled={isDisabled} onClick={clearCart}>
+            비우기
+          </Button>
+          <Button size="md" disabled={isDisabled} onClick={openModal}>
+            결제
+          </Button>
+        </section>
       </Container>
       {isOpenModal && <OrderModal onClose={closeModal} />}
     </>
@@ -65,16 +82,20 @@ const Container = styled.aside`
 
   & > section {
     flex: 1;
+    width: 100%;
     display: flex;
     align-items: flex-start;
     justify-content: flex-end;
     gap: 0.8rem;
-    font-size: 1.8rem;
+    font-size: 1.2rem;
   }
 
-  & > button {
+  & > section:first-of-type {
+    justify-content: space-between;
+  }
+
+  & button {
     width: 200px;
-    max-width: 300px;
   }
 
   & > .time {
@@ -82,12 +103,13 @@ const Container = styled.aside`
     bottom: 1rem;
   }
   @media (max-width: ${({ theme }) => theme.BP.MOBILE}) {
-    & > button {
+    flex-direction: column;
+    align-items: flex-start;
+    & button {
       max-width: 10rem;
     }
 
     & > section {
-      flex-direction: column;
       align-items: flex-start;
     }
   }

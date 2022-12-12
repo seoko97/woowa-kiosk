@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
-type IReturn = (cb: () => void, delay: number) => [number, () => void, () => void];
+type IFn = () => void;
+type IReturn = (cb: () => void, delay: number, values?: any[]) => [number, IFn, IFn, IFn];
 
-export const useClearTimer: IReturn = (cb, delay) => {
+export const useClearTimer: IReturn = (cb, delay, values = []) => {
   const [time, setTime] = useState(delay / 1000);
   const [start, setStart] = useState(false);
 
@@ -14,6 +15,10 @@ export const useClearTimer: IReturn = (cb, delay) => {
     setStart(false);
   };
 
+  const setClearTime = () => {
+    setTime(delay / 1000);
+  };
+
   useEffect(() => {
     if (!start) return;
 
@@ -23,13 +28,13 @@ export const useClearTimer: IReturn = (cb, delay) => {
 
     const _delayCallBack = setTimeout(() => {
       cb();
-    }, delay);
+    }, time * 1000);
 
     return () => {
       clearInterval(_timer);
       clearTimeout(_delayCallBack);
     };
-  }, [start]);
+  }, [start, ...values]);
 
-  return [time, startTimer, stopTimer];
+  return [time, startTimer, stopTimer, setClearTime];
 };

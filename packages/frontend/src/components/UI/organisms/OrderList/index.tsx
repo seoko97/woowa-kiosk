@@ -42,17 +42,18 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  gap: 1rem; ;
 `;
 
 const ItemList = styled.div`
   width: 100%;
   flex: 1;
-  max-height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  overflow: auto;
+  overflow-y: auto;
   flex-wrap: nowrap;
   gap: 1rem;
 `;
@@ -62,8 +63,9 @@ const ButtonList = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1rem;
   margin-top: auto;
+
+  gap: 1rem;
   & > button {
     flex: 1;
   }

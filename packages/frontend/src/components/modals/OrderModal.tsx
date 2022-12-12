@@ -74,7 +74,6 @@ const OrderModal = ({ onClose }: Props) => {
       <Container>
         {!loading && <CloseButton className="close" onClick={checkClose} />}
         {checkCompos}
-        <div></div>
       </Container>
     </ModalLayout>
   );
@@ -95,11 +94,11 @@ const Container = styled.div`
 
   & > .close {
     margin: 0;
-    /* position: absolute; */
   }
 
   @media (max-width: ${({ theme }) => theme.BP.KIOSK}) {
     width: 100%;
+    margin: 0 1rem;
   }
 `;
 
